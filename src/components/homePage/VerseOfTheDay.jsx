@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { languageContext } from "../../App";
 
 function VerseOfTheDay() {
+  const { language } = useContext(languageContext);
   return (
     <div className="p-8 bg-orange-100">
       <p className="text-orange-500 font-bold">Verse of the day - BG 1.27</p>

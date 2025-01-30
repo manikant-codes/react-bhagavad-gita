@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 function Verses() {
+  // const params = useParams();
+  // const { number } = params;
+  // OR
   const { number } = useParams();
   const [loading, setLoading] = useState(true);
   const [verses, setVerses] = useState(null);
@@ -39,6 +42,20 @@ function Verses() {
   useEffect(() => {
     getAllVerses();
   }, [number]);
+
+  function getTranslatedVerse(verseObject) {
+    const foundTranslation = verseObject.translations.find(
+      (translationObject) => {
+        return translationObject.language === "english";
+      }
+    );
+
+    if (foundTranslation) {
+      return foundTranslation.description;
+    }
+
+    return "No translation found.";
+  }
 
   console.log("verses", verses);
 
@@ -83,10 +100,10 @@ function Verses() {
               }}
               className="grid grid-cols-[100px_1fr] p-4 hover:bg-orange-100 cursor-pointer"
             >
-              <p className="text-orange-500">
+              <p className="text-orange-500 font-semibold">
                 Verse {verseObject.verse_number}
               </p>
-              <p>{verseObject.transliteration}</p>
+              <p>{getTranslatedVerse(verseObject)}</p>
             </li>
           );
         })}
